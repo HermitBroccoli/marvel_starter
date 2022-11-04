@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Scpinner from '../spinner/Spinner'
 import ErrorMessage from '../errorMessage/ErrorMessage'
-import MarvelService from '../../services/MarvelService'
+import MarvelService from '../../services/MarvelService.js'
 import './randomChar.scss';
 // import thor from '../../resources/img/thor.jpeg';
 import mjolnir from '../../resources/img/mjolnir.png';
@@ -27,6 +27,13 @@ class RandomChar extends Component {
 			error: true
 		})
 	}
+
+    onCharLoading = () => {
+        this.setState({
+            loadin: true
+        })
+    }
+
 	componentDidMount() {
 		this.updateChar();
 		// this.timerId = setInterval(this.updateChar, 3000)
@@ -39,6 +46,7 @@ class RandomChar extends Component {
 	// get artical and error reversal : получие героя и обработка ошибки
 	updateChar = () => {
 		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
+        this.onCharLoading()
 		this.marvelService
 			// .getAllCharacters().then(res => console.log(res))
 			.getCharacter(id)
